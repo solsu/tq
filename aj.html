@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="rem.js"></script>
+    <script src="jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../css/aj.css">
+</head>
+<body>
+<div class="bg">
+    <h5>bj</h5>
+    <div class="pop">
+        <h3>55</h3>
+        <h3>良</h3>
+    </div>
+    <h2>33</h2>
+    <h4>duoyun</h4>
+    <h6>xinain</h6>
+
+</div>
+<section class="s1">
+
+    <div class="s11">
+    <div class="item"><div class="item1"><span class="j1">今天</span><span class="j2">26/30</span></div><div class="item1"><span class="j3">多云</span><span class="j4"><img
+            src="" alt=""></span></div></div>
+        <div class="item"><div class="item1"><span class="j1">今天</span><span class="j2">26/30</span></div><div class="item1"><span class="j3">多云</span><span class="j4"><img
+                src="" alt=""></span></div></div>
+    </div>
+</section>
+<section class="s2">
+    <ul class="s22">
+
+    </ul>
+</section>
+<section class="s2">
+    <ul class="s22">
+
+    </ul>
+</section>
+<!--<section class="s3">-->
+    <!--<ul class="s33">-->
+        <!--<li>-->
+            <!--<p>昨天</p>-->
+            <!--<p>06/25</p>-->
+            <!--<p>阴</p>-->
+            <!--<p><img src="img/5.png" alt=""></p>-->
+            <!--<p><img src="img/5.png" alt=""></p>-->
+            <!--<p>雷阵雨</p>-->
+            <!--<p>东北风</p>-->
+            <!--<p>3级</p>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<p>昨天</p>-->
+            <!--<p>06/25</p>-->
+            <!--<p>阴</p>-->
+            <!--<p><img src="img/5.png" alt=""></p>-->
+            <!--<p><img src="img/10.png" alt=""></p>-->
+            <!--<p>雷阵雨</p>-->
+            <!--<p>东北风</p>-->
+            <!--<p>3级</p>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</section>-->
+<section class="s4">
+    <ul>
+        <li><img src="img/ganmao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/ganmao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/ganmao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/ganmao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/xianhao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/xianhao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/xianhao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+        <li><img src="img/xianhao.png" alt=""><p>炎热</p><p>穿衣</p></li>
+    </ul>
+</section>
+</body>
+</html>
+<script>
+    $(function () {
+    let weather;
+    let hh=[];
+    let pp=[];
+    let tt=[];
+    $.ajax({
+        url:'https://www.toutiao.com/stream/widget/local_weather/data/?city=太原',
+        dataType:'jsonp',
+        success:function(dat){   //请求成功后执行的函数
+            weather=dat.data.weather;
+            console.log(weather);
+            nam=weather.city_name;
+            tem=weather.dat_high_temperature;
+            tianqi=weather.day_condition;
+            feng=weather.wind_direction;
+            fl=weather.wind_level;
+            zg=weather.dat_high_temperature;
+            zd=weather.dat_low_temperature;
+            idd=weather.dat_weather_icon_id;
+            // hh=weather.hourly_forecast[2].hour;
+            $.each(weather.hourly_forecast,function (i) {
+                 hh.push(weather.hourly_forecast[i].hour);
+                pp.push(weather.hourly_forecast[i].temperature);
+                tt.push(weather.hourly_forecast[i].weather_icon_id);
+            })
+            console.log(hh);
+
+            w();
+        },
+    })
+    function w() {
+    $("h5").html(nam);
+    $("h2").html(`&nbsp;${tem}°`);
+    $("h4").html(tianqi);
+    $("h6").html(`${feng}&nbsp;${fl}级`);
+    $(".j2").html(`${zg}/${zd}°`);
+    $(".j3").html(tianqi);
+    $(".j4 img").attr("src",`img/${idd}.png`);
+
+        for(i=0;i<12;i++){
+            let str=`<li><p>${hh[i]}:00</p>
+            <p><img src="img/${tt[i]}.png" alt=""></p>
+            <p>${pp[i]}°</p></li>`
+            $(".s22").append(str)
+        }
+    }
+
+    })
+</script>

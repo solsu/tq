@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+window.onload=function () {
+
+    let date=new Date();
+    date.setTime(date.getTime()+30*24*60*60*1000);
+    let expires=date.toGMTString();
+    document.cookie="myTime=1200; expires="+expires;
+
+
+
+    function getcookie(nname) {
+        let cookieString=document.cookie;
+        let  cookieArr=cookieString.split("; ");
+        for(i=0;i<cookieArr.length;i++){
+             cookieNum=element.split("=");
+             cookieName=cookieNum[0];
+             cookieValue=cookieNum[1];
+             if(cookieName==nname){
+                 return cookieValue;
+             }
+        }
+        return false;
+    }
+    getcookie()
+}
+</script>
